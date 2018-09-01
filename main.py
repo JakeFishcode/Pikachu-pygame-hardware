@@ -7,8 +7,8 @@ GPIO.setup(22, GPIO.OUT)
 GPIO.setup(23, GPIO.OUT)
 
 ledStatus = 1
-GPIO.output(22,GPIO.OUT)#key output high
-
+GPIO.output(22,GPIO.HIGH)#key output high
+GPIO.output(23,GPIO.HIGH)
 
 while True:
 	if(GPIO.input(21) == GPIO.HIGH):
@@ -24,5 +24,5 @@ while True:
 			pass
 		time.sleep(0.03)
 		pass
-	time.sleep(0,01)
+	time.sleep(0.01)
 	pass
