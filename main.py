@@ -1,5 +1,7 @@
 import time
 import pygame,sys
+import RPi.GPIO as GPIO
+
 class Pikachu_music:
 	pygame.init()
 	pygame.mixer.init()
@@ -9,6 +11,25 @@ class Pikachu_music:
 	def stop_music(self):
 		pygame.mixer.music.stop()
 
+class Raspberrypi():
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setup(5,GPIO.OUT)#key output
+	GPIO.output(5,GPIO.HIGH)
+	GPIO.setup(12,GPIO.OUT)#Relay out
+	GPIO.output(12,GPIO.HIGH)
+	GPIO.setup(8,GPIO.OUT)#led out
+	GPIO.setup(6,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)#key input
+	def led_shine_1(self):
+		GPIO.output(8,GPIO.HIGH)
+	def led_shine_0(self):
+		GPIO.output(8,GPIO.LOW)
+	
+	def relay_ht(self):
+		GPIO.output(12,GPIO.LOW)
+	
+	def key_return(self):
+		return GPIO.input(6)
+	
 
 
 class Pikachu:
@@ -31,19 +52,13 @@ class Pikachu:
 		time.sleep(sc_time)
 		print("The emnemy must be deaf")
 		
-a = Pikachu_music()
-music_file = 'try.mp3'
-a.play_music(music_file)
-time.sleep(20)
-a.stop_music()
 
-p = Pikachu()
-time.sleep(0.1)
-print("I use the class")
-p.htford()
-p.shine()
-p.scream()
+if __name__  == '__main__':
+	print("Test")
+	R = Raspberrypi()
+	while True:
+		if R.key_return == GPIO.HIGH:
+			print("key down")
+			break
+	GPIO.cleanup()
 
-
-if __init__ =='__main__':
-	main()
