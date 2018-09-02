@@ -3,12 +3,11 @@ import pygame,sys
 class Pikachu_music:
 	pygame.init()
 	pygame.mixer.init()
-	ping = pygame.display.set_mode([500,365])
 	def play_music(self,road):
 		pygame.mixer.music.load(road)
 		pygame.mixer.music.play()
 	def stop_music(self):
-		pygame.mixer.musci.stop()
+		pygame.mixer.music.stop()
 
 
 
@@ -32,7 +31,11 @@ class Pikachu:
 		time.sleep(sc_time)
 		print("The emnemy must be deaf")
 		
-
+a = Pikachu_music()
+music_file = 'try.mp3'
+a.play_music(music_file)
+time.sleep(20)
+a.stop_music()
 
 p = Pikachu()
 time.sleep(0.1)
@@ -40,3 +43,7 @@ print("I use the class")
 p.htford()
 p.shine()
 p.scream()
+
+
+if __init__ =='__main__':
+	main()
