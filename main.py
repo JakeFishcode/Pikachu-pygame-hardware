@@ -13,8 +13,6 @@ class Pikachu_music:
 
 class Raspberrypi():
 	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(5,GPIO.OUT)#key output
-	GPIO.output(5,GPIO.HIGH)
 	GPIO.setup(12,GPIO.OUT)#Relay out
 	GPIO.output(12,GPIO.HIGH)
 	GPIO.setup(8,GPIO.OUT)#led out
@@ -24,11 +22,11 @@ class Raspberrypi():
 	def led_shine_0(self):
 		GPIO.output(8,GPIO.LOW)
 	
-	def relay_ht(self):
+	def relay_ht_1(self):
 		GPIO.output(12,GPIO.LOW)
+	def relay_ht_0(self):
+		GPIO.output(12,GPIO.HIGH)
 	
-	def key_return(self):
-		return GPIO.input(6)
 	
 
 
@@ -56,9 +54,17 @@ class Pikachu:
 if __name__  == '__main__':
 	print("Test")
 	R = Raspberrypi()
-	while True:
-		if R.key_return == GPIO.HIGH:
-			print("key down")
-			break
-	GPIO.cleanup()
+	P = Pikachu_music()
+	m = 'try.mp3'
+	try:
+		while True:
+			if GPIO.input(6) == GPIO.HIGH:
+				print("key down")
+				P.play_music(m)
+				time.sleep(2)
+				R.relay_ht_1()
+				time.sleep(1)
+				R.relay_ht_0()
+	except BaseException:
+		GPIO.cleanup()
 
